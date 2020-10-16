@@ -1,14 +1,15 @@
-
 #define GL_SILENCE_DEPRECATION
 #define GLFW_INCLUDE_GLU
 #include "GLFW/glfw3.h"
 #include <math.h>
 #include "box.hpp"
 
+#define MAXFRAME 300.0
+
 // 登場する関数
 void myinit(GLFWwindow** window);
 void reshape(GLFWwindow* window, int w, int h);
-void display(void);
+void display(int frame);
 
 //--初期化—------------------------------------------------------------------
 void myinit(GLFWwindow** window)
@@ -45,15 +46,16 @@ void reshape(GLFWwindow* window, int w, int h)
 }
 
 //--描画内容--------------------------------------------------------------------
-void display(void)
+void display(int frame)
 {
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glEnable(GL_DEPTH_TEST);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-
-    // box.cpp内の関数を使ってボックスを描画。
-    // パラメータは、makebox(ｘ方向の長さ, y方向の長さ, z方向の長さ)
+    
+    double angle = (double)360*frame/MAXFRAME; // frame から回転角を決める。MAXFRAME で一回転。
+    glRotated(angle,0,0,1); // z軸回転させる
     makebox(1.0,1.0,1.0);
 }
 
@@ -69,9 +71,16 @@ int main(void)
     glfwSetWindowSizeCallback(window, reshape);
     
     
-    //イベント処理ループ
+    // イベント処理ループ
+    // 今回から時間(frame)を使ったアニメーションを行う。
+    // frame は0から1ずつ増加し、MAXFRAMEまですすむと0に戻ることを繰り返す。  
+    int frame = 0;
     do{
-        display();
+        frame++;
+        if(MAXFRAME < frame)
+            frame = 0;
+
+        display(frame);
         glfwSwapBuffers(window);
         glfwPollEvents();
     }while( !glfwWindowShouldClose(window) );//ウィンドウが表示されるかぎりループする
