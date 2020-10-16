@@ -27,6 +27,7 @@ void myinit(GLFWwindow** window)
     glLoadIdentity();
     
     reshape(*window, w, h); // 視点の初期化をおこなう
+    glEnable(GL_DEPTH_TEST);
 }
 
 
@@ -49,14 +50,13 @@ void reshape(GLFWwindow* window, int w, int h)
 void display(int frame)
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glEnable(GL_DEPTH_TEST);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     
     double angle = (double)360*frame/MAXFRAME; // frame から回転角を決める。MAXFRAME で一回転。
     glRotated(angle,0,0,1); // z軸回転させる
-    makebox(1.0,1.0,1.0);
+    makebox(1.0,1.0,1.0, GL_POLYGON);
 }
 
 //--メイン関数------------------------------------------------------------------

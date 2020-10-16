@@ -64,7 +64,6 @@ int main(void)
 void display(int frame)
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glEnable(GL_DEPTH_TEST);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
