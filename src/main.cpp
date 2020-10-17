@@ -22,10 +22,6 @@ void myinit(GLFWwindow** window)
     glfwMakeContextCurrent(*window);
     glClearColor(0, 0, 0, 1); // 背景色の設定
     
-    glViewport( 0, 0, (GLsizei)600, (GLsizei)600 ); //ウィンドウ全体をビューポートにする
-    glMatrixMode( GL_PROJECTION );
-    glLoadIdentity();
-    
     reshape(*window, w, h); // 視点の初期化をおこなう
     glEnable(GL_DEPTH_TEST);
 }
