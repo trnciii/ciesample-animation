@@ -1,4 +1,5 @@
 この資料は、従来版の第4回 - アニメーション に対応します。
+[このリポジトリ](https://github.com/trnciii/ciesample-animation)からファイルをダウンロードしたら`sample.xcodeproj` を開き、実行できるか確認してください。
 
 ## 目次
 * [準備](#準備)
